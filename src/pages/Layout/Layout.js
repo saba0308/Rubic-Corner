@@ -1,4 +1,4 @@
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import './Layout.css';
 import * as React from 'react';
 import { Typography } from "@mui/material";
@@ -7,30 +7,8 @@ const Layout = () => {
   return (
     <>
  
-      <nav>
-        <img src="/images/design.png" alt="" height={100} />
-        <ul>
-          <li>
       
-          <NavLink exact  activeClassName='is-active' to='/'>Home</NavLink>
-          </li>
-          <li>
-          <NavLink activeClassName='is-active' to='/services'>Services</NavLink>
-            {/* <Link to="/LogIns">LogIns</Link> */}
-          </li>
-          <li>
-          <NavLink exact activeClassName='is-active' to='/about'>About Us</NavLink>
-            {/* <Link to="/contact">Contact</Link> */}
-          </li>
-          
-          <li>
-          <NavLink activeClassName='is-active' to='/contact'>Contact Us</NavLink>
-            {/* <Link to="/LogIns">LogIns</Link> */}
-          </li>
-        </ul>
-    
-      </nav>
-<Header/>
+      <Header/>
       <Outlet />
       
       <footer>

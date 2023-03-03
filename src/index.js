@@ -6,11 +6,17 @@ import Layout from "./pages/Layout/Layout";
 import Home from "./pages/Home/Home";
 import LogIn from "./pages/LogIn/LogIn";
 import Contact from "./pages/Contact/Contact";
+import AdminHome from "./pages/Admin/adminHome/adminHome"
 import NoPage from "./pages/NoPage";
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
 import About from './pages/About/about';
 import Services from './pages/Services/services';
+import Registration from './pages/Registration/Registration';
+import AdminLayout from './pages/Admin/adminLayout/adminLayout';
+import AdminContact from './pages/Admin/adminContact/adminContact';
+import AdminAbout from './pages/Admin/adminAbout/adminAbout';
+import AdminServices from './pages/Admin/adminServices/adminServices';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
@@ -23,6 +29,7 @@ import Services from './pages/Services/services';
 // }
 
 function App(){
+  
   return (
     <BrowserRouter>
     <Routes>
@@ -32,6 +39,14 @@ function App(){
         <Route path="contact" element={<Contact />} />
         <Route path="about" element={<About />} />
         <Route path="services" element={<Services />} />
+        <Route path='register' element={< Registration/>}/>
+        
+        <Route path='adminLayout' element={< AdminLayout/>}>
+            <Route path='adminHome' element={< AdminHome/>}/>
+            <Route path='adminContact' element={< AdminContact/>}/>
+            <Route path='adminAbout' element={< AdminAbout/>}/>
+            <Route path='adminServices' element={< AdminServices/>}/>
+        </Route>
         <Route path="*" element={<NoPage />} />
       </Route>
     </Routes>

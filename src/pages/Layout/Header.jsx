@@ -104,6 +104,7 @@ const DesktopNavigation = () => {
       <NavLink activeClassName='is-active' to='/contact'>Contact Us</NavLink>
         {/* <Link to="/LogIns">LogIns</Link> */}
       </li>
+   
     </ul>
     </Stack>
  
@@ -148,6 +149,7 @@ const MobileNavigation = () => {
       <NavLink activeClassName='is-active' to='/contact'>Contact Us</NavLink>
         {/* <Link to="/LogIns">LogIns</Link> */}
       </li>
+      
     </ul>
     </Stack>
         
