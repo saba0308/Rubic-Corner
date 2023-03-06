@@ -20,3 +20,8 @@
   .contact{
     width:70%;
   }
+  #contactForm{
+    position: relative;
+    top:-50px;
+    left:-10px;
+  }

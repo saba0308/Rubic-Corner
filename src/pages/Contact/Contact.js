@@ -1,12 +1,11 @@
 import { Card, CardContent, Stack, Typography } from "@mui/material";
 
-import React, { Fragment } from 'react';
-
+import React, { Fragment, useRef } from 'react';
+import emailjs from 'emailjs-com';
 import * as Yup from 'yup';
 import './Contact.css'
 import {
   Paper,
-  Box,
   Grid
 
 } from '@mui/material';
@@ -15,27 +14,35 @@ const Contact = () => {
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
   const validationSchema = Yup.object().shape({
-    fullname: Yup.string().required('Name is required'),
+    to_name: Yup.string().required('Name is required'),
     mobilenumber: Yup.string().required('Mobile Number is required').matches(phoneRegExp, 'Phone number is not valid'),
-    email: Yup.string().required('Email is required').email('Email is invalid'),
+    to_email: Yup.string().required('Email is required').email('Email is invalid'),
     comments: Yup.string().required('Comments are required')
   });
 
-
+  const form = useRef();
   const formik = useFormik({
     initialValues: {
-      fullname: '',
+      to_name: '',
       mobilenumber: '',
-      email: '',
+      to_email: '',
       comments: ''
     },
     validationSchema,
     // validateOnChange: false,
     // validateOnBlur: false,
     onSubmit: (data) => {
+
       console.log(JSON.stringify(data, null, 2));
+      emailjs.sendForm('service_tjzyjbr', 'template_qf80sce', form.current, 'qdIOGRYOm4F8r9TGU')
+        .then((result) => {
+          window.location.reload()  //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior) 
+        }, (error) => {
+          console.log(error.text);
+        });
     },
   });
+
 
 
   return (
@@ -47,28 +54,30 @@ const Contact = () => {
           spacing={{ xs: 1, sm: 2, md: 4 }} >
           <Fragment>
             <Paper sx={{ width: 350, position: 'relative', left: '50px' }}>
-              <Typography fontSize={42} textAlign='center' fontWeight={400} variant="h2" color='#1976d2;'>Contact Us</Typography>
-              <Box px={3} py={2}>
 
+
+
+              <form ref={form} id="contactForm">
+                <Typography fontSize={42} textAlign='center' fontWeight={400} variant="h2" color='#1976d2;'>Contact Us</Typography>
                 <Grid container spacing={1}>
                   <Grid item xs={12} sm={12}>
                     <div className="form-group">
-                      <label htmlFor="fullname"> Name</label>
+                      <label htmlFor="to_name"> Name</label>
                       <input
-                        name="fullname"
+                        name="to_name"
                         type="text"
                         className={
                           'form-control' +
-                          (formik.errors.fullname && formik.touched.fullname
+                          (formik.errors.to_name && formik.touched.to_name
                             ? ' is-invalid'
                             : '')
                         }
                         onChange={formik.handleChange}
-                        value={formik.values.fullname}
+                        value={formik.values.to_name}
                       />
                       <div className="invalid-feedback">
-                        {formik.errors.fullname && formik.touched.fullname
-                          ? formik.errors.fullname
+                        {formik.errors.to_name && formik.touched.to_name
+                          ? formik.errors.to_name
                           : null}
                       </div>
                     </div>
@@ -99,20 +108,20 @@ const Contact = () => {
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <div className="form-group">
-                      <label htmlFor="email"> Email </label>
+                      <label htmlFor="to_email"> Email </label>
                       <input
-                        name="email"
+                        name="to_email"
                         type="email"
                         className={
                           'form-control' +
-                          (formik.errors.email && formik.touched.email ? ' is-invalid' : '')
+                          (formik.errors.to_email && formik.touched.to_email ? ' is-invalid' : '')
                         }
                         onChange={formik.handleChange}
-                        value={formik.values.email}
+                        value={formik.values.to_email}
                       />
                       <div className="invalid-feedback">
-                        {formik.errors.email && formik.touched.email
-                          ? formik.errors.email
+                        {formik.errors.to_email && formik.touched.to_email
+                          ? formik.errors.to_email
                           : null}
                       </div>
                     </div>
@@ -142,20 +151,19 @@ const Contact = () => {
                   </Grid>
 
                 </Grid>
-
                 <div className="form-group">
                   <button type="submit" className="btn btn-primary" onClick={formik.handleSubmit}>
-                    Register
+                    Subscribe
                   </button>
                   {/* <button
-                    type="button"
-                    className="btn btn-warning float-right"
-                    onClick={formik.handleReset}
-                  >
-                    Reset
-                  </button> */}
+    type="button"
+    className="btn btn-warning float-right"
+    onClick={formik.handleReset}
+  >
+    Reset
+  </button> */}
                 </div>
-              </Box>
+              </form>
 
             </Paper>
           </Fragment>
